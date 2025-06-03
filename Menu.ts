@@ -1,13 +1,35 @@
 import readlinesync = require("readline-sync");
+import {colors} from './src/util/Colors';
+import { Conta } from './src/model/Conta';
 
 export function main() {
 
     let opcao: number;
 
+    const conta: Conta = new Conta(1, 123, 1, "Adriana", 10000);
+
+    conta.visualizar();
+    conta.sacar(10500);
+    conta.visualizar();
+    conta.depositar(5000);
+    conta.visualizar();
+    
+
     while (true) {
+
+// No comando de saída de dados console.log(), adicionamos dois parâmetros colors.bg.black e colors.fg.yellow, definindo que o texto será exibido na cor amarela e o plano de fundo do texto será preto.
+// reset: Restaura as cores padrões do Terminal;
+// fg: Objeto Literal que contém as cores do texto (foreground);
+// bg: Objeto Literal que contém as cores do plano de fundo (background).
+
+    console.log (colors.fg.yellowstrong)
+
     console.log (`
+        ***********************************
+
         BANCO DO BRAZIL COM Z
-        
+
+        ***********************************
         
         1 - Criar conta
         2 - Listar todas as contas
@@ -24,11 +46,11 @@ export function main() {
     opcao = readlinesync.questionInt ("");
 
    if (opcao == 9) {
-            console.log("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
-            sobre(); 
-            process.exit(0);
+    console.log (colors.fg. greenstrong)
+    console.log("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
+    sobre(); 
+    process.exit(0);
     }
-
 
     switch (opcao){
         case 1:
