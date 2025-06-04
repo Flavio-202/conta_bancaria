@@ -1,7 +1,7 @@
 import readlinesync = require("readline-sync");
 import {colors} from './src/util/Colors';
 import { Conta } from './src/model/Conta';
-import { ContaCorrente } from "./src/model/contacorrente";
+import { ContaCorrente } from "./src/model/ContaCorrente";
 import { ContaPoupanca } from "./src/model/ContaPoupanca";
 
 export function main() {
@@ -14,7 +14,7 @@ export function main() {
     conta.visualizar();
     conta.depositar(5000);
     conta.visualizar();
-Esse código não funciona mais porque a classe Conta foi declarada como 'abstract', ou seja, não pode ser instanciada diretamente usando o new. */
+Esse código não funciona mais porque a classe Conta foi declarada como 'abstract', ou seja, não pode ser instanciada diretamente usando o new. Se rodar o código não */
 
     const contacorrente: ContaCorrente = new ContaCorrente(2, 123, 1, "Mariana", 15000, 1000);
     contacorrente.visualizar();
