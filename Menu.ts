@@ -1,20 +1,35 @@
 import readlinesync = require("readline-sync");
 import {colors} from './src/util/Colors';
 import { Conta } from './src/model/Conta';
+import { ContaCorrente } from "./src/model/contacorrente";
+import { ContaPoupanca } from "./src/model/ContaPoupanca";
 
 export function main() {
 
     let opcao: number;
 
-    const conta: Conta = new Conta(1, 123, 1, "Adriana", 10000);
-
+ /* const conta: Conta = new Conta(1, 123, 1, "Adriana", 10000);
     conta.visualizar();
     conta.sacar(10500);
     conta.visualizar();
     conta.depositar(5000);
     conta.visualizar();
-    
+Esse código não funciona mais porque a classe Conta foi declarada como 'abstract', ou seja, não pode ser instanciada diretamente usando o new. */
 
+    const contacorrente: ContaCorrente = new ContaCorrente(2, 123, 1, "Mariana", 15000, 1000);
+    contacorrente.visualizar();
+    contacorrente.sacar(2000);
+    contacorrente.visualizar();
+    contacorrente.depositar(1000);
+    contacorrente.visualizar();
+
+    const contapoupanca: ContaPoupanca = new ContaPoupanca(3, 123, 2, "Victor", 1000, 10);
+    contapoupanca.visualizar();
+    contapoupanca.sacar(200);
+    contapoupanca.visualizar();
+    contapoupanca.depositar(1000);
+    contapoupanca.visualizar();
+    
     while (true) {
 
 // No comando de saída de dados console.log(), adicionamos dois parâmetros colors.bg.black e colors.fg.yellow, definindo que o texto será exibido na cor amarela e o plano de fundo do texto será preto.
