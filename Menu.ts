@@ -9,7 +9,7 @@ import { readlinkSync } from "fs";
 export function main() {
 
     let contas: ContaController = new ContaController ();
-    let opcao, number, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, valor, numeroDestino: number;
     let titular: string;
     const tiposContas = ['Conta corrente', 'Conta poupanca'];
 
@@ -21,19 +21,6 @@ export function main() {
     conta.visualizar();
 Esse código não funciona mais porque a classe Conta foi declarada como 'abstract', ou seja, não pode ser usada diretamente usando o new. Nesse caso é preciso escolher entre a classe ContaCorrente ou ContaPoupanca. */
 
-    const contacorrente: ContaCorrente = new ContaCorrente(2, 123, 1, "Mariana", 15000, 1000);
-    contacorrente.visualizar();
-    contacorrente.sacar(2000);
-    contacorrente.visualizar();
-    contacorrente.depositar(1000);
-    contacorrente.visualizar();
-
-    const contapoupanca: ContaPoupanca = new ContaPoupanca(3, 123, 2, "Victor", 1000, 10);
-    contapoupanca.visualizar();
-    contapoupanca.sacar(200);
-    contapoupanca.visualizar();
-    contapoupanca.depositar(1000);
-    contapoupanca.visualizar();
     
     while (true) {
 
@@ -89,7 +76,7 @@ Esse código não funciona mais porque a classe Conta foi declarada como 'abstra
     switch (tipo) {
 
             case 1:
-                console.log ("Digite o limite d conta R$: ");
+                console.log ("Digite o limite da conta R$: ");
                 limite = readlinesync.questionFloat ("");
                 contas.cadastrar(new ContaCorrente (contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
                 break;
@@ -97,8 +84,7 @@ Esse código não funciona mais porque a classe Conta foi declarada como 'abstra
             case 2:
                 console.log ("digite o dia do aniversário da conta poupança: ");
                 aniversario = readlinesync.questionInt ("");
-                contas.cadastrar (new ContaPoupanca (contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
-
+                contas.cadastrar (new ContaPoupanca (contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
     }
                 keyPress()
                 break;
@@ -111,11 +97,50 @@ Esse código não funciona mais porque a classe Conta foi declarada como 'abstra
 
             case 3:
                 console.log(colors.fg.whitestrong, "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
+                console.log ("\nDigite o número da conta: ");
+                numero = readlinesync.questionInt ("");
+                contas.procurarPorNumero (numero);
                 keyPress()
                 break;
 
             case 4:
                 console.log(colors.fg.whitestrong, "\n\nAtualizar dados da Conta\n\n", colors.reset);
+                console.log ("Digite o número da conta: ");
+                numero = readlinesync.questionInt ("");
+                let conta = contas.buscarNoArray (numero);
+
+                if (conta !== null){
+                    console.log ("\nDigite o número da agência: ");
+                    agencia = readlinesync.questionInt ("");
+
+                    console.log ("\nDigite o nome do titular da conta:  \n");
+                    titular = readlinesync.question ("");
+
+                    tipo = conta.tipo;
+
+                    console.log ("\nDigite o saldo da conta R$: \n");
+                    saldo = readlinesync.questionFloat ("");
+
+    switch (tipo) {
+
+            case 1:
+            console.log ("Digite o limite da conta R$: ");
+            limite = readlinesync.questionFloat ("");
+            contas.atualizar (new ContaCorrente (numero, agencia, tipo, titular, saldo, limite ));
+            break;
+
+            case 2:
+            console.log ("\nDigite o dia do aniversário da conta poupança: \n");
+            aniversario = readlinesync.questionInt ("");
+            
+            contas.atualizar (new ContaPoupanca (numero, agencia, tipo, titular, saldo, aniversario ));
+            break;
+        }
+
+        }   
+            else {
+            console.log (`\nA conta numero: ${numero}, não foi encontrada!`);
+        }
                 keyPress()
                 break;
 
@@ -126,11 +151,24 @@ Esse código não funciona mais porque a classe Conta foi declarada como 'abstra
 
             case 6:
                 console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
+                console.log ("Digite o número da conta: ");
+                numero = readlinesync.questionInt ("");
+
+                console.log ("\nDigite o valor do saque R$: ");
+                valor = readlinesync.questionFloat ("");
+                contas.sacar (numero,valor);
+
                 keyPress()
                 break;
 
             case 7:
                 console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
+                console.log ("Digite o número da conta:");
+                numero = readlinesync.questionInt ("");
+
+                console.log ("Digite o valor do deposito R$: ");
+                valor = readlinesync.questionFloat ("");
+                contas.depositar (numero, valor);
                 keyPress()
                 break;
 
